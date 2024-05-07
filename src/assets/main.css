@@ -1,0 +1,15 @@
+@import "reset.css";
+@import './base.css';
+
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: #006FEE;
+  transition: 0.4s;
+  padding: 3px;
+}
