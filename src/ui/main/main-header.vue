@@ -19,7 +19,9 @@ const router = useRouter()
 
 const handleExitClick = () => {
   // 1.删除token
-  localCache.removeCache('token')
+  // localCache.removeCache('token')
+
+  localCache.clearCache()
   // 2.跳转到登录页
   router.push('/login')
 }
@@ -36,6 +38,23 @@ const emit = defineEmits(['foldChange'])
 
 // 用户信息
 const loginStore = useLoginStore()
+
+// 刷新页面事件处理
+const refreshPage = () => {
+  window.location.reload()
+}
+
+// 全屏事件处理
+const isFullScreen = ref(false)
+const toggleFullScreen = () => {
+  if (!isFullScreen.value) {
+    document.documentElement.requestFullscreen()
+    isFullScreen.value = true
+  } else {
+    document.exitFullscreen()
+    isFullScreen.value = false
+  }
+}
 </script>
 
 <template>
@@ -58,12 +77,12 @@ const loginStore = useLoginStore()
       </div>
       <div class="info">
         <div class="operation">
-          <span><el-icon><Search /></el-icon></span>
-          <span>
-            <span class="dot"></span>
-            <el-icon><Bell /></el-icon>
-          </span>
-          <span><el-icon><FullScreen /></el-icon></span>
+          <!--          <span>-->
+          <!--            <span class="dot"></span>-->
+          <!--            <el-icon><Bell /></el-icon>-->
+          <!--          </span>-->
+          <span @click="refreshPage"><el-icon><RefreshRight /></el-icon></span>
+          <span @click="toggleFullScreen"><el-icon><FullScreen /></el-icon></span>
         </div>
         <div class="user">
           <el-dropdown>
@@ -160,10 +179,19 @@ const loginStore = useLoginStore()
 
       .user {
         .username {
+          padding: 2px 5px;
           display: flex;
           align-items: center;
           gap: 8px;
           cursor: pointer;
+
+          &:hover {
+            background: #f2f2f2;
+          }
+
+          .name {
+            font-size: large;
+          }
 
           // 弹出来的dropdown没有渲染到app里面, 用:deep找不到
           // global是全局生效，给整个html设置样式

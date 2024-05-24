@@ -1,34 +1,29 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import AccountPanel from '@/ui/login/account-panel.vue'
-import PhonePanel from '@/ui/login/phone-panel.vue'
 import { localCache } from '@/utils/cache'
 
 // const isRememberPassword = ref(false)
 const isRememberPassword = ref<boolean>(localCache.getCache('isRememberPassword') ?? false)
-// console.log(isRememberPassword.value)
-
-const activeTab = ref('account')
+// console.log('login-panel:', isRememberPassword.value)
 
 // 获取组件实例类型
 const accountRef = ref<InstanceType<typeof AccountPanel>>()
 
 const handleLoginBtnClick = () => {
-  if (activeTab.value === 'account') {
-    // console.log('帐号登录')
-    // 1.获取子组件的实例
-    // 2.调用子组件的方法
-    accountRef.value?.loginAction(isRememberPassword.value)
-  } else {
-    console.log('手机号登录')
-  }
+  // 1.获取子组件的实例
+  // 2.调用子组件的方法
+  accountRef.value?.loginAction(isRememberPassword.value)
 }
 
 // 记住密码的处理
 watch(isRememberPassword, (newValue) => {
-  // console.log(newValue)
-  localCache.setCache('isRememberPassword', newValue)
-  // console.log(localCache.getCache('isRememberPassword'))
+  console.log(newValue)
+  if (newValue) {
+    localCache.setCache('isRememberPassword', newValue)
+  } else {
+    localCache.removeCache('isRememberPassword')
+  }
 })
 </script>
 
@@ -36,26 +31,7 @@ watch(isRememberPassword, (newValue) => {
   <div class="login-panel">
     <h1 class="title">后台管理系统</h1>
     <div class="login-form">
-      <el-tabs type="border-card" stretch v-model="activeTab">
-        <el-tab-pane name="account">
-          <template #label>
-        <span class="tabs-label">
-          <el-icon><UserFilled /></el-icon>
-          <span class="text">帐号登录</span>
-        </span>
-          </template>
-          <account-panel ref="accountRef" />
-        </el-tab-pane>
-        <el-tab-pane name="phone">
-          <template #label>
-        <span class="tabs-label">
-          <el-icon><Iphone /></el-icon>
-          <span class="text">手机登录</span>
-        </span>
-          </template>
-          <phone-panel />
-        </el-tab-pane>
-      </el-tabs>
+      <account-panel ref="accountRef" />
     </div>
     <div class="actions">
       <el-checkbox v-model="isRememberPassword" label="记住密码" size="large" />
@@ -73,19 +49,6 @@ watch(isRememberPassword, (newValue) => {
   .title {
     text-align: center;
     margin-bottom: 25px;
-  }
-
-  .login-form {
-
-    .tabs-label {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .text {
-        margin-left: 5px;
-      }
-    }
   }
 
   .actions {

@@ -20,6 +20,7 @@ const [modalRef, handleCreateClick, handleEditClick] = usePageModal(createCallba
 
 // 获取完整菜单数据
 const mainStore = useMainStore()
+mainStore.getEntireMenusAction()
 const { entireMenus } = storeToRefs(mainStore)
 
 // 菜单的处理

@@ -21,6 +21,6 @@ export interface ISystemState {
 
 export interface IMainStore {
   entireRoles: any[]
-  entireDepartments: any[]
+  // entireDepartments: any[]
   entireMenus: any[]
 }

@@ -39,7 +39,7 @@ const useSystemStore = defineStore('system', {
   actions: {
     async getUsersListAction(queryInfo: any) {
       const usersListResult = await GetUserListData(queryInfo)
-      console.log(usersListResult)
+      // console.log('usersListResult:', usersListResult)
       const { list, totalCount } = usersListResult.data
       this.usersList = list
       this.usersTotalCount = totalCount
@@ -54,32 +54,36 @@ const useSystemStore = defineStore('system', {
 
       // 获取最新完整的数据
       const mainStore = useMainStore()
-      mainStore.getEntireDataAction()
+      // mainStore.getEntireDataAction()
+      mainStore.getEntireRolesAction()
     },
     async addUserAction(userInfo: any) {
+      console.log(userInfo)
       const res = await CreateUser(userInfo)
-      console.log(res)
+      // console.log(res)
       // 重新请求最新的数据
       this.getUsersListAction({ offset: 0, size: 10 })
 
       // 获取最新完整的数据
       const mainStore = useMainStore()
-      mainStore.getEntireDataAction()
+      // mainStore.getEntireDataAction()
+      mainStore.getEntireRolesAction()
     },
     async editUserAction(id: number, userInfo: any) {
       const editRes = await EditUserById(id, userInfo)
-      console.log(editRes)
+      // console.log(editRes)
       // 重新请求最新的数据
       this.getUsersListAction({ offset: 0, size: 10 })
 
       // 获取最新完整的数据
       const mainStore = useMainStore()
-      mainStore.getEntireDataAction()
+      // mainStore.getEntireDataAction()
+      mainStore.getEntireRolesAction()
     },
     // 封装：针对页面的数据：增删改查
     async getPageListAction(pageName: string, queryInfo: any) {
       const pageListResult = await GetPageListData(pageName, queryInfo)
-      console.log(pageListResult)
+      // console.log('getPageListAction:', pageListResult)
       const { list, totalCount } = pageListResult.data
       this.pageList = list
       this.pageTotalCount = totalCount
@@ -88,14 +92,15 @@ const useSystemStore = defineStore('system', {
       try {
         // 1.删除数据操作
         const res = await DeletePageById(pageName, id)
-        console.log(res)
+        // console.log('deletePageByIdAction:', res)
 
         // 2.重新请求新的数据
         this.getPageListAction(pageName, { offset: 0, size: 10 })
 
         // 获取最新完整的数据
         const mainStore = useMainStore()
-        mainStore.getEntireDataAction()
+        // mainStore.getEntireDataAction()
+        mainStore.getEntireMenusAction()
       } catch (err) {
         console.error(err)
         throw err
@@ -104,13 +109,14 @@ const useSystemStore = defineStore('system', {
     async addPageDataAction(pageName: string, data: any) {
       try {
         const res = await CreatePageData(pageName, data)
-        console.log(res)
+        // console.log(res)
         // 重新请求最新的数据
         this.getPageListAction(pageName, { offset: 0, size: 10 })
 
         // 获取最新完整的数据
         const mainStore = useMainStore()
-        mainStore.getEntireDataAction()
+        // mainStore.getEntireDataAction()
+        mainStore.getEntireMenusAction()
       } catch (err) {
         console.error(err)
         throw err
@@ -119,13 +125,14 @@ const useSystemStore = defineStore('system', {
     async editPageDataAction(pageName: string, id: number, data: any) {
       try {
         const editRes = await EditPageDataById(pageName, id, data)
-        console.log(editRes)
+        // console.log(editRes)
         // 重新请求最新的数据
         this.getPageListAction(pageName, { offset: 0, size: 10 })
 
         // 获取最新完整的数据
         const mainStore = useMainStore()
-        mainStore.getEntireDataAction()
+        // mainStore.getEntireDataAction()
+        mainStore.getEntireMenusAction()
       } catch (err) {
         console.error(err)
         throw err

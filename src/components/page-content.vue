@@ -55,7 +55,6 @@ fetchPageListData()
 
 // 2.获取list数据，进行展示
 const { pageList, pageTotalCount } = storeToRefs(systemStore)
-console.log(pageList)
 
 // 3.分页相关逻辑
 const handleSizeChange = () => {
@@ -193,6 +192,7 @@ defineExpose({ fetchPageListData })
       .cell {
         display: flex;
         justify-content: center;
+        align-items: center;
         gap: 10px;
       }
     }

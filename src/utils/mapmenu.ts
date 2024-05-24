@@ -57,14 +57,14 @@ function loadLocalRoutes() {
   const files: Record<string, any> = import.meta.glob('../router/main/**/*.ts', {
     eager: true
   })
-  console.log(files)
+  // console.log(files)
   // 1.2.将加载的对象放到localRoutes中
   for (const key in files) {
     const module = files[key]
-    console.log(module.default)
+    // console.log(module.default)
     localRoutes.push(module.default)
   }
-  console.log(localRoutes)
+  // console.log(localRoutes)
 
   return localRoutes
 }

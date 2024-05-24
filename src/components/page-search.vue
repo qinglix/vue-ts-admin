@@ -53,15 +53,15 @@ const handleQueryClick = () => {
               <template v-if="item.type === 'input'">
                 <el-input v-model="searchForm[item.prop]" :placeholder="item.placeholder" />
               </template>
-              <template v-else-if="item.type === 'date-picker'">
-                <el-date-picker
-                  v-model="searchForm[item.prop]"
-                  type="daterange"
-                  range-separator="-"
-                  start-placeholder="开始日期"
-                  end-placeholder="结束日期"
-                />
-              </template>
+              <!--              <template v-else-if="item.type === 'date-picker'">-->
+              <!--                <el-date-picker-->
+              <!--                  v-model="searchForm[item.prop]"-->
+              <!--                  type="daterange"-->
+              <!--                  range-separator="-"-->
+              <!--                  start-placeholder="开始日期"-->
+              <!--                  end-placeholder="结束日期"-->
+              <!--                />-->
+              <!--              </template>-->
             </el-form-item>
           </el-col>
         </template>

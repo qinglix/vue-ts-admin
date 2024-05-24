@@ -16,7 +16,9 @@ const formData = reactive<any>({
 
 // 获取departments数据
 const mainStore = useMainStore()
-const { entireDepartments } = storeToRefs(mainStore)
+mainStore.getEntireMenusAction()
+console.log(mainStore.entireMenus)
+const { entireMenus } = storeToRefs(mainStore)
 
 const systemStore = useSystemStore()
 
@@ -74,7 +76,7 @@ defineExpose({ setModalVisible })
           </el-form-item>
           <el-form-item label="选择部门" prop="parentId">
             <el-select v-model="formData.parentId" placeholder="请选择部门">
-              <template v-for="item in entireDepartments" :key="item.id">
+              <template v-for="item in entireMenus" :key="item.id">
                 <el-option :label="item.name" :value="item.id" />
               </template>
             </el-select>

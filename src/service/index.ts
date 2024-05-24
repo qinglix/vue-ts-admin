@@ -1,6 +1,7 @@
 import { BASE_URL, TIME_OUT } from './config'
 import AppRequest from './request'
 import { localCache } from '@/utils/cache'
+import router from '@/router'
 
 const appRequest = new AppRequest({
   baseURL: BASE_URL,
@@ -14,6 +15,13 @@ const appRequest = new AppRequest({
         config.headers.Authorization = 'Bearer ' + token
       }
       return config
+    },
+    responseSuccessFn: (res) => {
+      if (res.status === 401 || res.status === 403) {
+        localCache.clearCache()
+        router.push('/login')
+      }
+      return res
     }
   }
 })

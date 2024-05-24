@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { localCache } from '@/utils/cache'
 import { firstMenu } from '@/utils/mapmenu'
+import { checkTokenAndLogout } from '@/utils/auth'
 
 const router = createRouter({
   history: createWebHashHistory(),
@@ -42,6 +43,10 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   // 只有登录成功(token)，才能进入到main页面
   const token = localCache.getCache('token')
+
+  // 设置token过期时间
+  checkTokenAndLogout()
+
   // if (to.path !== '/login' && !token) {
   if (to.path.startsWith('/main') && !token) {
     return '/login'

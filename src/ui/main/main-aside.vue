@@ -8,7 +8,7 @@ import { firstMenu, mapPathToMenu } from '@/utils/mapmenu'
 // pinia中的数据只有被使用，才会在页面中显示
 const loginStore = useLoginStore()
 const userMenus = loginStore.userMenus
-console.log(userMenus)
+// console.log(userMenus)
 
 // 2.监听item的点击
 const router = useRouter()
@@ -19,7 +19,7 @@ const handleItemClick = (item: any) => {
 
 // 3.处理菜单显示
 const route = useRoute()
-console.log(route.path)
+// console.log(route.path)
 // const pathMenu = mapPathToMenu(route.path, userMenus)
 // const defaultActive = ref(pathMenu.id + '')
 const defaultActive = computed(() => {

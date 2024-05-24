@@ -1,13 +1,27 @@
 <script setup lang="ts">
 import MainAside from '@/ui/main/main-aside.vue'
 import MainHeader from '@/ui/main/main-header.vue'
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
+import { checkTokenAndLogout } from '@/utils/auth'
 
 // 处理main-header中折叠的变化
 const isFold = ref(false)
 const handleFoldChange = (flag: boolean) => {
   isFold.value = flag
 }
+
+// let intervalId: number | null = null
+// onMounted(() => {
+//   console.log('MainPage onMounted')
+//   intervalId = setInterval(checkTokenAndLogout, 1000 * 60 * 10)  // 10分钟检查一次token是否过期
+// })
+//
+// // 在组件销毁的时候，清除定时器
+// onUnmounted(() => {
+//   if (intervalId) {
+//     clearInterval(intervalId)
+//   }
+// })
 </script>
 
 <template>

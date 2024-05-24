@@ -7,6 +7,7 @@ import { mapMenusToPermissions, mapMenusToRoutes } from '@/utils/mapmenu'
 import useMainStore from '@/stores/main'
 
 interface ILoginState {
+  // id: number
   token: string
   userInfo: any
   userMenus: any,
@@ -24,16 +25,17 @@ const useLoginStore = defineStore('login', {
     // // userMenus: []
     // userInfo: localCache.getCache('userInfo') ?? {},
     // userMenus: localCache.getCache('userMenus') ?? []
+    // id: -1,
     token: '',
     userInfo: {},
     userMenus: [],
     permissions: []
   }),
   actions: {
-    async accountLoginAction(account: { name: string; password: string }) {
+    async accountLoginAction(account: { username: string; password: string }) {
       // 1.登录逻辑获取token
       const loginResult = await accountLoginRequest(account)
-      console.log(loginResult)
+      // console.log('loginResult:', loginResult)
       this.token = loginResult.data.token
       const id = loginResult.data.id
 
@@ -43,14 +45,13 @@ const useLoginStore = defineStore('login', {
 
       // 获取登录用户的详细信息(角色信息)
       const userInfoResult = await getUserInfoById(id)
-      console.log(userInfoResult)
+      // console.log('userInfoResult:', userInfoResult)
       const userInfo = userInfoResult.data
       this.userInfo = userInfo
-      console.log(this.userInfo.role)
 
       // 根据角色请求用户的权限(菜单)
       const userMenusResult = await getUserMenuByRoleId(this.userInfo.role.id)
-      console.log(userMenusResult)
+      // console.log('userMenusResult:', userMenusResult)
       // this.userMenus = userMenusResult.data
       const userMenus = userMenusResult.data
       this.userMenus = userMenus
@@ -60,8 +61,8 @@ const useLoginStore = defineStore('login', {
       localCache.setCache('userMenus', userMenus)
 
       // 请求所有roles/departments数据
-      const mainStore = useMainStore()
-      mainStore.getEntireDataAction()
+      // const mainStore = useMainStore()
+      // mainStore.getEntireDataAction()
 
       // 重要：获取登录用户所有按钮的权限
       const permissions = mapMenusToPermissions(userMenus)
@@ -99,11 +100,14 @@ const useLoginStore = defineStore('login', {
       // 3.页面跳转
       router.push('/main')
     },
-    loadLocalCacheAction() {
+    async loadLocalCacheAction() {
       // 1.用户进行刷新默认加载数据
       const token = localCache.getCache('token')
       const userInfo = localCache.getCache('userInfo')
       const userMenus = localCache.getCache('userMenus')
+
+      // 请求新的数据
+
       if (token && userInfo && userMenus) {
         // 说明用户已经登录
         this.token = token
@@ -111,8 +115,8 @@ const useLoginStore = defineStore('login', {
         this.userMenus = userMenus
 
         // 请求所有roles/departments数据
-        const mainStore = useMainStore()
-        mainStore.getEntireDataAction()
+        // const mainStore = useMainStore()
+        // mainStore.getEntireDataAction()
 
         // 获取按钮的权限
         const permissions = mapMenusToPermissions(userMenus)

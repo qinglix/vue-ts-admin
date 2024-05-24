@@ -9,15 +9,13 @@ import { localCache } from '@/utils/cache'
 
 // 定义表单数据
 const form = reactive<IAccount>({
-  // username: '',
-  // password: ''
-  name: localCache.getCache('name') ?? '',
+  username: localCache.getCache('username') ?? '',
   password: localCache.getCache('password') ?? ''
 })
 
 // 表单校验规则
 const rules: FormRules = {
-  name: [
+  username: [
     { required: true, message: '请输入帐号', trigger: 'blur' }
   ],
   password: [
@@ -33,21 +31,21 @@ const loginAction = (isRememberPassword: boolean) => {
 // 登录前的校验逻辑处理
   formRef.value?.validate((valid) => {
     if (valid) {
-      console.log('校验成功')
-      console.log(form)
-      const name = form.name
+      // console.log('校验成功')
+      // console.log(form)
+      const username = form.username
       const password = form.password
       // 发送网络请求
-      // accountLoginRequest({ name: username, password }).then((res) => {
+      // accountLoginRequest({ username: username, password }).then((res) => {
       //   console.log(res)
       // })
-      loginStore.accountLoginAction({ name, password }).then(() => {
+      loginStore.accountLoginAction({ username, password }).then(() => {
         // 判断是否记住密码
         if (isRememberPassword) {
-          localCache.setCache('name', name)
+          localCache.setCache('username', username)
           localCache.setCache('password', password)
         } else {
-          localCache.removeCache('name')
+          localCache.removeCache('username')
           localCache.removeCache('password')
         }
       })
@@ -66,13 +64,13 @@ defineExpose({
 
 <template>
   <div class="account-panel">
-    <el-form label-width="60px" size="large" :model="form" :rules="rules" status-icon ref="formRef">
+    <el-form label-width="60px" size="large" :model="form" :rules="rules" ref="formRef">
       <!-- prop属性的值是匹配表单校验规则 -->
-      <el-form-item label="帐号" prop="name">
-        <el-input v-model="form.name" placeholder="coderwhy" />
+      <el-form-item label="帐号" prop="username">
+        <el-input v-model="form.username" />
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="form.password" show-password placeholder="123456" />
+        <el-input v-model="form.password" show-password />
       </el-form-item>
     </el-form>
   </div>

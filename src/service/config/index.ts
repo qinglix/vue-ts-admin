@@ -12,9 +12,9 @@
 let BASE_URL = ''
 // 判断是否为生产环境
 if (import.meta.env.PROD) {
-  BASE_URL = 'http://123.207.32.32:5000'
+  BASE_URL = 'http://localhost:8000'
 } else {
-  BASE_URL = 'http://codercba.com:5000'
+  BASE_URL = 'http://localhost:8000'
 }
 console.log(BASE_URL)
 

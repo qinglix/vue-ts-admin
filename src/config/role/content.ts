@@ -9,10 +9,10 @@ const contentConfig = {
     { type: 'index', label: '序号', width: '60' },
 
     { type: 'normal', prop: 'name', label: '角色名称', width: '150' },
-    { type: 'normal', prop: 'intro', label: '权限介绍', width: '180' },
+    { type: 'normal', prop: 'description', label: '角色描述', width: '180' },
 
     { type: 'date', prop: 'createAt', label: '创建时间' },
-    { type: 'date', prop: 'updateAt', label: '更新时间' },
+    // { type: 'date', prop: 'updateAt', label: '更新时间' },
 
     { type: 'action', label: '操作', width: '200' }
   ]

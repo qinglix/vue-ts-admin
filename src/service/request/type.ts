@@ -4,7 +4,8 @@ import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 export interface AppInterceptors<T = AxiosResponse> {
   requestSuccessFn?: (config: AxiosRequestConfig) => AxiosRequestConfig
   requestFailureFn?: (err: any) => any
-  responseSuccessFn?: (res: T) => T
+  // responseSuccessFn?: (res: T) => T
+  responseSuccessFn?: (res: any) => any
   responseFailureFn?: (err: any) => any
 }
 

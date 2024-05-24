@@ -2,7 +2,7 @@ import appRequest from '@/service'
 
 export function GetUserListData(queryInfo: any) {
   return appRequest.post({
-    url: '/users/list',
+    url: '/user/list',
     // data: {
     //   offset: 0,
     //   size: 10
@@ -13,20 +13,20 @@ export function GetUserListData(queryInfo: any) {
 
 export function DeleteUserById(id: number) {
   return appRequest.delete({
-    url: `/users/${id}`
+    url: `/user/${id}`
   })
 }
 
 export function CreateUser(userInfo: any) {
   return appRequest.post({
-    url: '/users',
+    url: '/user',
     data: userInfo
   })
 }
 
 export function EditUserById(id: number, userInfo: any) {
   return appRequest.patch({
-    url: `/users/${id}`,
+    url: `/user/${id}`,
     data: userInfo
   })
 }

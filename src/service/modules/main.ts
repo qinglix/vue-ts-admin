@@ -8,11 +8,11 @@ export function GetEntireRoles() {
 }
 
 // 获取全部部门列表
-export function GetEntireDepartments() {
-  return appRequest.post({
-    url: '/department/list'
-  })
-}
+// export function GetEntireDepartments() {
+//   return appRequest.post({
+//     url: '/department/list'
+//   })
+// }
 
 // 获取完整菜单数据
 export function GetEntireMenus() {

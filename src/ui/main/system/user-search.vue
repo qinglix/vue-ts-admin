@@ -6,9 +6,9 @@ import type { ElForm } from 'element-plus'
 const emit = defineEmits(['queryClick', 'resetClick'])
 
 const searchForm = reactive({
+  username: '',
   name: '',
-  realname: '',
-  cellphone: '',
+  // cellphone: '',
   enable: '',
   createAt: ''
 })
@@ -34,40 +34,40 @@ const handleQueryClick = () => {
     <el-form label-width="80px" size="large" :model="searchForm" ref="formRef">
       <el-row :gutter="20">
         <el-col :span="8" :xs="24" :sm="12" :md="8">
-          <el-form-item label="用户名" prop="name">
-            <el-input placeholder="请输入查询的用户名" v-model="searchForm.name" />
+          <el-form-item label="用户名" prop="username">
+            <el-input placeholder="请输入用户名" v-model="searchForm.username" />
           </el-form-item>
         </el-col>
         <el-col :span="8" :xs="24" :sm="12" :md="8">
-          <el-form-item label="真实姓名" prop="realname">
-            <el-input placeholder="请输入查询的真实姓名" v-model="searchForm.realname" />
+          <el-form-item label="姓名" prop="name">
+            <el-input placeholder="请输入姓名" v-model="searchForm.name" />
           </el-form-item>
         </el-col>
-        <el-col :span="8" :xs="24" :sm="12" :md="8">
-          <el-form-item label="手机号码" prop="cellphone">
-            <el-input placeholder="请输入查询的手机号码" v-model="searchForm.cellphone" />
-          </el-form-item>
-        </el-col>
+        <!--        <el-col :span="8" :xs="24" :sm="12" :md="8">-->
+        <!--          <el-form-item label="手机号码" prop="cellphone">-->
+        <!--            <el-input placeholder="请输入查询的手机号码" v-model="searchForm.cellphone" />-->
+        <!--          </el-form-item>-->
+        <!--        </el-col>-->
 
         <el-col :span="8" :xs="24" :sm="12" :md="8">
           <el-form-item label="状态" prop="enable">
-            <el-select placeholder="请选择状态" style="width: 100%;" v-model="searchForm.enable">
+            <el-select placeholder="请选择用户状态" style="width: 100%;" v-model="searchForm.enable">
               <el-option label="启用" :value="1" />
               <el-option label="禁用" :value="0" />
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="8" :xs="24" :sm="12" :md="8">
-          <el-form-item label="创建时间" prop="createAt">
-            <el-date-picker
-              type="daterange"
-              range-separator="-"
-              start-placeholder="开始时间"
-              end-placeholder="结束时间"
-              v-model="searchForm.createAt"
-            />
-          </el-form-item>
-        </el-col>
+        <!--        <el-col :span="8" :xs="24" :sm="12" :md="8">-->
+        <!--          <el-form-item label="创建时间" prop="createAt">-->
+        <!--            <el-date-picker-->
+        <!--              type="daterange"-->
+        <!--              range-separator="-"-->
+        <!--              start-placeholder="开始时间"-->
+        <!--              end-placeholder="结束时间"-->
+        <!--              v-model="searchForm.createAt"-->
+        <!--            />-->
+        <!--          </el-form-item>-->
+        <!--        </el-col>-->
       </el-row>
     </el-form>
     <div class="btns">

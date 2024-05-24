@@ -9,10 +9,12 @@ import usePermissions from '@/hooks/usePermissions'
 const emit = defineEmits(['create-click', 'edit-click'])
 
 // 用户页面的权限判断
-const isCreate = usePermissions('users:create')
-const isUpdate = usePermissions('users:update')
-const isDelete = usePermissions('users:delete')
-const isQuery = usePermissions('users:query')
+const isCreate = usePermissions('user:create')
+const isUpdate = usePermissions('user:update')
+const isDelete = usePermissions('user:delete')
+const isQuery = usePermissions('user:query')
+
+console.log('Permission:', isCreate, isUpdate, isDelete, isQuery)
 
 // 1.发起action，请求usersList的数据
 const systemStore = useSystemStore()
@@ -27,7 +29,6 @@ fetchUserListData()
 // 坑：第一次页面请求的时候，由于是异步请求，所有此时的usersList是个空的数组
 // const usersList = systemStore.usersList
 const { usersList, usersTotalCount } = storeToRefs(systemStore)
-console.log(usersList)
 
 // 3.分页相关逻辑
 const handleSizeChange = () => {
@@ -86,13 +87,13 @@ defineExpose({
       <el-table :data="usersList" border style="width: 100%">
         <el-table-column align="center" type="selection" width="50" />
         <el-table-column align="center" type="index" label="序号" width="80" />
-        <el-table-column align="center" prop="name" label="用户名" width="150" />
-        <el-table-column align="center" prop="realname" label="真实姓名" width="150" />
-        <el-table-column align="center" prop="cellphone" label="手机号码" width="150" />
+        <el-table-column align="center" prop="username" label="用户名" width="150" />
+        <el-table-column align="center" prop="name" label="姓名" width="150" />
+        <!--        <el-table-column align="center" prop="cellphone" label="手机号码" width="150" />-->
         <el-table-column align="center" prop="enable" label="状态" width="90">
           <!-- 作用域插槽 -->
           <template #default="scope">
-            <el-button size="small" :type="scope.row.enable ? 'success' : 'danger'" plain>
+            <el-button size="small" :type="scope.row.enable ? 'success' : 'warning'" plain>
               {{ scope.row.enable ? '启用' : '禁用' }}
             </el-button>
           </template>
@@ -102,11 +103,12 @@ defineExpose({
             {{ formatUTCDate(scope.row.createAt) }}
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="updateAt" label="更新时间">
-          <template #default="scope">
-            {{ formatUTCDate(scope.row.updateAt) }}
-          </template>
-        </el-table-column>
+        <!--        <el-table-column align="center" prop="updateAt" label="更新时间">-->
+        <!--          <template #default="scope">-->
+        <!--            {{ formatUTCDate(scope.row.updateAt) }}-->
+        <!--          </template>-->
+        <!--        </el-table-column>-->
+        <el-table-column align="center" prop="role.name" label="角色" width="150" />
         <el-table-column align="center" label="操作">
           <template #default="scope">
             <el-button size="default" text bg type="primary" icon="Edit" @click="handleEditUserClick(scope.row)"

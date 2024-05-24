@@ -1,9 +1,9 @@
 import appRequest from '@/service'
 import { localCache } from '@/utils/cache'
 
-export function accountLoginRequest(account: { name: string; password: string }) {
+export function accountLoginRequest(account: { username: string; password: string }) {
   return appRequest.post({
-    url: '/login',
+    url: '/auth/login',
     data: account
   })
 }
@@ -11,7 +11,7 @@ export function accountLoginRequest(account: { name: string; password: string })
 // 获取用户信息
 export function getUserInfoById(id: number) {
   return appRequest.get({
-    url: `/users/${id}`
+    url: `/user/${id}`
     // 单独请求携带token
     // headers: {
     //   Authorization: `Bearer ${localCache.getCache('token')}`
