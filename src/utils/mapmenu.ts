@@ -1,4 +1,4 @@
-import type { RouteRecordRaw } from 'vue-router'
+import type {RouteRecordRaw} from 'vue-router'
 import router from '@/router'
 
 export let firstMenu: any = null
@@ -33,7 +33,7 @@ export function mapMenusToRoutes(userMenus: any[]) {
         // 解决面包屑跳转到父栏目的问题
         // 1.给route的顶层菜单增加重定向功能(但是只需要添加一次)
         if (!routes.find((item) => item.path === menu.url)) {
-          routes.push({ path: menu.url, redirect: route.path })
+          routes.push({path: menu.url, redirect: route.path})
         }
         // routes.push({ path: menu.url, redirect: menu.children[0].url })
 

@@ -31,6 +31,21 @@ export function EditUserById(id: number, userInfo: any) {
   })
 }
 
+// 获取角色菜单
+export function GetRoleMenu(id: number) {
+  return appRequest.get({
+    url: `/role/${id}/menu`
+  })
+}
+
+// 给角色分配菜单
+export function AssignRoleMenu(id: number, menuIdList: number[]) {
+  return appRequest.post({
+    url: `/role/${id}/menu`,
+    data: menuIdList
+  })
+}
+
 // 封装：针对页面的网络请求：增删改查
 export function GetPageListData(pageName: string, queryInfo: any) {
   return appRequest.post({

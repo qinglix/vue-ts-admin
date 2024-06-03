@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import {reactive, ref} from 'vue'
 import useMainStore from '@/stores/main'
-import { storeToRefs } from 'pinia'
+import {storeToRefs} from 'pinia'
 import useSystemStore from '@/stores/system'
 
 const dialogVisible = ref(false)
@@ -20,6 +20,7 @@ const setModalVisible = (isCreate: boolean = true, data?: any) => {
     for (const key in formData) {
       formData[key] = data[key]
     }
+    formData.roleId = data.role.id  // 手动设置 roleId
     editData.value = data
   } else {
     // 新建数据
@@ -43,7 +44,7 @@ const formData = reactive<any>({
 // 获取roles/departments数据
 const mainStore = useMainStore()
 mainStore.getEntireRolesAction()
-const { entireRoles } = storeToRefs(mainStore)
+const {entireRoles} = storeToRefs(mainStore)
 
 const systemStore = useSystemStore()
 // 点击确认的逻辑
@@ -80,13 +81,13 @@ defineExpose({
       <div class="form">
         <el-form v-model="formData" label-width="80px" size="large">
           <el-form-item label="用户名" prop="username">
-            <el-input v-model="formData.username" placeholder="请输入用户名" />
+            <el-input v-model="formData.username" placeholder="请输入用户名"/>
           </el-form-item>
           <el-form-item label="姓名" prop="name">
-            <el-input v-model="formData.name" placeholder="请输入姓名" />
+            <el-input v-model="formData.name" placeholder="请输入姓名"/>
           </el-form-item>
           <el-form-item label="密码" prop="password" v-if="isCreateRef">
-            <el-input v-model="formData.password" placeholder="请输入密码" show-password />
+            <el-input v-model="formData.password" placeholder="请输入密码" show-password/>
           </el-form-item>
           <!--          <el-form-item label="手机号码" prop="cellphone">-->
           <!--            <el-input v-model="formData.cellphone" placeholder="请输入手机号码" />-->
@@ -100,8 +101,9 @@ defineExpose({
           <el-form-item label="选择角色" prop="roleId">
             <el-select v-model="formData.roleId" placeholder="请选择角色">
               <template v-for="item in entireRoles" :key="item.id">
-                <el-option :label="item.name" :value="item.id" />
+                <el-option :label="item.name" :value="item.id"/>
               </template>
+              <!--              <el-option v-for="item in entireRoles" :key="item.id" :label="item.name" :value="item.id" />-->
             </el-select>
           </el-form-item>
           <!--          <el-form-item label="选择部门" prop="departmentId">-->

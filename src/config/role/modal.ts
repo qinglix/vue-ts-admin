@@ -1,4 +1,4 @@
-import type { IModalConfig } from '@/types'
+import type {IModalConfig} from '@/types'
 
 const modalConfig: IModalConfig = {
   pageName: 'role',
@@ -7,10 +7,10 @@ const modalConfig: IModalConfig = {
     editTitle: '编辑角色'
   },
   formItems: [
-    { type: 'input', label: '角色名称', prop: 'name', placeholder: '请输入角色名称' },
-    { type: 'input', label: '权限介绍', prop: 'intro', placeholder: '请输入角色权限介绍' },
+    {type: 'input', label: '角色名称', prop: 'name', placeholder: '请输入角色名称'},
+    {type: 'input', label: '权限描述', prop: 'description', placeholder: '请输入角色权限描述'},
     // 自定义插槽
-    { type: 'custom', slotName: 'menuList' }
+    {type: 'custom', slotName: 'menuList'}
   ]
 }
 

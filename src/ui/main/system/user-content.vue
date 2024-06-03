@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import useSystemStore from '@/stores/system'
-import { storeToRefs } from 'pinia'
-import { formatUTCDate } from '@/utils/format'
-import { ref } from 'vue'
+import {storeToRefs} from 'pinia'
+import {formatUTCDate} from '@/utils/format'
+import {ref} from 'vue'
 import usePermissions from '@/hooks/usePermissions'
 
 // 定义自定义事件
@@ -28,7 +28,7 @@ fetchUserListData()
 // 2.获取usersList数据，进行展示
 // 坑：第一次页面请求的时候，由于是异步请求，所有此时的usersList是个空的数组
 // const usersList = systemStore.usersList
-const { usersList, usersTotalCount } = storeToRefs(systemStore)
+const {usersList, usersTotalCount} = storeToRefs(systemStore)
 
 // 3.分页相关逻辑
 const handleSizeChange = () => {
@@ -48,10 +48,10 @@ function fetchUserListData(formData: any = {}) {
   // 1.获取offset/size
   const size = pageSize.value
   const offset = (currentPage.value - 1) * size
-  const info = { size, offset }
+  const info = {size, offset}
 
   // 2.发送网络请求
-  const queryInfo = { ...info, ...formData }
+  const queryInfo = {...info, ...formData}
   // systemStore.getUsersListAction(info)
   systemStore.getUsersListAction(queryInfo)
 }
@@ -68,6 +68,7 @@ const handleCreateUserBtnClick = () => {
 
 // 编辑操作
 const handleEditUserClick = (itemData: any) => {
+  console.log("itemData:", itemData)
   emit('edit-click', itemData)
 }
 
@@ -85,10 +86,10 @@ defineExpose({
     </div>
     <div class="table">
       <el-table :data="usersList" border style="width: 100%">
-        <el-table-column align="center" type="selection" width="50" />
-        <el-table-column align="center" type="index" label="序号" width="80" />
-        <el-table-column align="center" prop="username" label="用户名" width="150" />
-        <el-table-column align="center" prop="name" label="姓名" width="150" />
+        <el-table-column align="center" type="selection" width="50"/>
+        <el-table-column align="center" type="index" label="序号" width="80"/>
+        <el-table-column align="center" prop="username" label="用户名" width="150"/>
+        <el-table-column align="center" prop="name" label="姓名" width="150"/>
         <!--        <el-table-column align="center" prop="cellphone" label="手机号码" width="150" />-->
         <el-table-column align="center" prop="enable" label="状态" width="90">
           <!-- 作用域插槽 -->
@@ -108,7 +109,7 @@ defineExpose({
         <!--            {{ formatUTCDate(scope.row.updateAt) }}-->
         <!--          </template>-->
         <!--        </el-table-column>-->
-        <el-table-column align="center" prop="role.name" label="角色" width="150" />
+        <el-table-column align="center" prop="role.name" label="角色" width="150"/>
         <el-table-column align="center" label="操作">
           <template #default="scope">
             <el-button size="default" text bg type="primary" icon="Edit" @click="handleEditUserClick(scope.row)"

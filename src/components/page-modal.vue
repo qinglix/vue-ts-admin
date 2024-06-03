@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import {reactive, ref} from 'vue'
 // import useMainStore from '@/stores/main'
 // import { storeToRefs } from 'pinia'
 import useSystemStore from '@/stores/system'
-import type { IModalProps } from '@/types'
+import type {IModalProps} from '@/types'
+import {AssignRoleMenu} from "@/service/modules/system";
 
 // interface IProps {
 //   modalConfig: {
@@ -28,6 +29,7 @@ for (const item of props.modalConfig.formItems) {
   initialData[item.prop] = item.initialValue ?? ''
 }
 const formData = reactive<any>(initialData)
+console.log('formData', formData)
 
 // 获取departments数据
 // const mainStore = useMainStore()
@@ -45,6 +47,7 @@ const setModalVisible = (isCreate: boolean = true, data?: any) => {
       formData[key] = data[key]
     }
     editData.value = data
+    console.log(editData.value.id)
   } else {
     // 新建数据
     for (const key in formData) {
@@ -63,8 +66,10 @@ const handleConfirmClick = () => {
   // 处理菜单的逻辑
   let infoData = formData
   if (props.otherInfo) {
-    infoData = { ...infoData, ...props.otherInfo }
+    infoData = {...infoData, ...props.otherInfo}
   }
+
+  console.log('infoData', infoData)
 
   if (!isCreateRef.value && editData.value) {
     // 编辑
@@ -78,7 +83,7 @@ const handleConfirmClick = () => {
 }
 
 // 暴露组件的属性和方法
-defineExpose({ setModalVisible })
+defineExpose({setModalVisible})
 </script>
 
 <template>
@@ -94,7 +99,7 @@ defineExpose({ setModalVisible })
           <template v-for="item in modalConfig.formItems" :key="item.prop">
             <el-form-item :label="item.label" :prop="item.prop">
               <template v-if="item.type === 'input'">
-                <el-input v-model="formData[item.prop]" :placeholder="item.placeholder" />
+                <el-input v-model="formData[item.prop]" :placeholder="item.placeholder"/>
               </template>
               <template v-if="item.type === 'date-picker'">
                 <el-date-picker
@@ -112,7 +117,7 @@ defineExpose({ setModalVisible })
                   style="width: 100%"
                 >
                   <template v-for="option in item.options" :key="option.value">
-                    <el-option :label="option.label" :value="option.value" />
+                    <el-option :label="option.label" :value="option.value"/>
                   </template>
                 </el-select>
               </template>
